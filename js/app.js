@@ -1,67 +1,123 @@
-console.clear();
+$(document).ready(function () {
+    // Initialize Datepicker
+    $("#date").datepicker({
+        minDate: 0, // Disable past dates
+        dateFormat: "dd-mm-yy", // Format date
+        maxDate: "+2M", // Allow up to 2 months ahead
+        showAnim: "fadeIn",
+        beforeShowDay: function (date) {
+            var day = date.getDay();
+            return [day !== 0 && day !== 6, ""]; // Disable Sundays and Saturdays
+        },
+    });
 
-$("#button").on("click", function () {
-  
-  let from = $("#from").val().trim().toLowerCase();
-  let to = $("#to").val().trim().toLowerCase();
-  let date = $("#date").val();
-  let time = $("#time").val();
-  let people = $("#people").val();
+    // Initialize Timepicker
+    $("#time").timepicker({
+        timeFormat: "h:mm tt", // 12-hour format with AM/PM
+        interval: 15, // Step interval for minutes
+        minTime: "12:00am", // Minimum time
+        maxTime: "11:45pm", // Maximum time
+        defaultTime: "", // Leave the field empty until user selects
+        startTime: "12:00am", // Start of the time range
+        dynamic: false, // Prevents dynamic updates to the dropdown
+        dropdown: true, // Show the dropdown
+        scrollbar: true, // Enable scrollbar if dropdown exceeds height
+    });
 
-  
-  if(from == "" || to == "" || date == "" || time == "" || people == ''){
-    alert("all fields are required");
-    return;
-  }
-  
-  
-  if(from === to){
-    alert("From and To place can't be same!!!");
-    return;
-  }
-  
-  
-  
-  let result = `
-   <h4>Booking Details</h4>
-   <p>From: ${from}</p>
-   <p>To: ${to}</p>
-   <p>Journery Date: ${date}</p>
-   <p>Departure Time: ${time}</p>
-   <p>People: ${people}</p>
-   <p>Travel Fair: Rs.${people * 500}</p>
-  `;
-  $("#result").fadeIn(500).append(result);
-  
-  
-  $("#from").val('')
-  $("#to").val('')
-  $("#date").val('')
-  $("#time").val('')
-   $("#people").val('')
-});
-
-
-
-  jQuery("#date").datepicker({
-    minDate: 0, // Disable past dates
-    dateFormat: "dd-mm-yy", // Format date as YYYY-MM-DD
-    maxDate: new Date(new Date().setMonth(new Date().getMonth() + 2)), // Allow up to 2 months ahead
-    showAnim: "fadeIn",
-    beforeShowDay: function(date) {
-      // Disable Sundays (0) and Saturdays (6)
-      var day = date.getDay();
-      return [(day != 0  && day != 6), ''];
+    // Function to generate a unique 6-digit OTP
+    function generateOTP() {
+        return Math.floor(100000 + Math.random() * 900000); // Random number between 100000 and 999999
     }
-  });
 
+    // Booking Logic
+    $("#book-now").on("click", function () {
+        const fullname = $('#fullname').val().trim();
+        const phone = $('#phone').val().trim();
+        const from = $("#from").val().trim();
+        const to = $("#to").val().trim();
+        const date = $("#date").val();
+        const time = $("#time").val();
+        const people = parseInt($("#people").val(), 10);
 
-jQuery( function($) {
-  $( "#time" ).timepicker({
-    ///timeFormat: "HH:mm", // 24-hour format (e.g., 14:30)
-    timeFormat: "h:mm tt", // 12-hour format with AM/PM (e.g., 2:30 PM)
-    showSecond: false, // Hide seconds
-    stepHour: 1, // Hour step interval
-    stepMinute: 15 // Minute step interval
-  });
-} );
+        // Input Validation
+        if (!fullname || !phone || !from || !to || !date || !time || !people) {
+            alert("All fields are required.");
+            return;
+        }
+
+        if (from.toLowerCase() === to.toLowerCase()) {
+            alert("From and To locations cannot be the same!");
+            return;
+        }
+
+        if (people < 1 || people > 4) {
+            alert("Number of people should be between 1 and 4.");
+            return;
+        }
+
+        // Generate a unique OTP
+        const otp = generateOTP();
+
+        // Calculate Total Fare
+        const totalFare = people * 500;
+
+        // Ticket Details
+        const ticketDetails = `
+Booking Details:
+---------------------
+Customer Name: ${fullname}
+Phone: ${phone} 
+From: ${from}
+To: ${to}
+Date: ${date}
+Time: ${time}
+Number of People: ${people}
+Total Fare: ₹${totalFare}
+Unique OTP: ${otp}
+        `;
+
+        // HTML for Ticket Toast
+        const resultHtml = `
+        <h4>Booking Confirmed</h4>
+        <p><strong>Name:</strong> ${fullname}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>From:</strong> ${from}</p>
+        <p><strong>To:</strong> ${to}</p>
+        <p><strong>Date:</strong> ${date}</p>
+        <p><strong>Time:</strong> ${time}</p>
+        <p><strong>Number of People:</strong> ${people}</p>
+        <p><strong>Total Fare:</strong> ₹${totalFare}</p>
+        <p><strong>Unique OTP:</strong> ${otp}</p>
+        <button id="download-ticket">Download Ticket</button>
+      `;
+
+        // Show Ticket Toast
+        $("#result").hide().html(resultHtml).fadeIn(500);
+
+        // Add Download Functionality
+        $("#download-ticket").off("click").on("click", function () {
+            const blob = new Blob([ticketDetails], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = `Ticket_${from}_to_${to}_${date}.txt`;
+            link.click();
+            URL.revokeObjectURL(url); // Clean up the URL
+        });
+
+        // Clear Fields
+        $("#fullname").val("");
+        $("#phone").val("");
+        $("#from").val("");
+        $("#to").val("");
+        $("#date").val("");
+        $("#time").val("");
+        $("#people").val("");
+    });
+
+    // Reset Fields
+    $("#reset").on("click", function () {
+        $("#fullname, #phone, #from, #to, #date, #time, #people").val("");
+        $("#result").fadeOut(300).html("");
+    });
+});

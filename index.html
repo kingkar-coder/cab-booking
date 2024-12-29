@@ -3,44 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cab booking</title>
-    <link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <title>Cab Booking</title>
+    <link rel="shortcut icon" href="cab.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css">
+
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="card">
         <div class="card-img">
-          <img src="https://content.jdmagicbox.com/comp/def_content/taxi-services-for-airport/jit4vttznd-taxi-services-for-airport-8-2vqeg.jpg" alt="">
+          <img src="https://content.jdmagicbox.com/comp/def_content/taxi-services-for-airport/jit4vttznd-taxi-services-for-airport-8-2vqeg.jpg" alt="Cab Service">
           <div class="price-tag">₹500<span>per head</span></div>
         </div>
         <div class="card-text">
-          <h2>Nice Travel & Decorate</h2>
-          <p>Explore top car rental services in Habra offering reliable and affordable options for local and outstation travel.</p>
+          <h2>Reliable Cab Booking</h2>
+          <p>Book affordable cabs for local and outstation travel with ease!</p>
       
           <div class="meta-fields">
-            <input type="text" placeholder="From" list="location" class="form-control" id="from" />
-            <input type="text" placeholder="To" list="location" class="form-control" id="to" />
-            <input type="text" placeholder="Date" class="form-control" id="date" />
-            <input type="time" placeholder="Time" class="form-control" id="time" />
-            <input type="number" placeholder="Number of People" class="form-control" id="people" min="1" max="4">
+            <input type="text" class="form-control" placeholder="Fullname" id="fullname" autocomplete="off">
+            <input type="text" class="form-control" placeholder="Phone" id="phone" autocomplete="off">
+            <input type="text" placeholder="From (e.g., Kolkata)" list="location" class="form-control" id="from" autocomplete="off" />
+            <input type="text" placeholder="To (e.g., Habra)" list="location" class="form-control" id="to" autocomplete="off" />
+            <input type="text" placeholder="Date (DD-MM-YYYY)" class="form-control" id="date" autocomplete="off" />
+            <input type="text" placeholder="Time (HH:MM AM/PM)" class="form-control" id="time" autocomplete="off" />
+            <input type="number" placeholder="Number of People (1-4)" class="form-control w-100" id="people" min="1" max="4" autocomplete="off">
           </div>
       
-          <button id="button">Book Now</button>
-      
+          <button id="book-now">Book Now</button>
+          <button id="reset">Reset</button>
         </div>
-        <div id="result"></div>
+        <div id="result" class="ticket-toast" style="display: none;">
+            <!-- Ticket details will be dynamically added here -->
+            <button id="download-ticket" style="display: none;">Download Ticket</button>
+        </div>
+          
       
         <datalist id="location">
-          <option value="kolkata">
-          <option value="habra">
-          <option value="barasat">
-          <option value="bongaon">
+            <option value="Habra">
+            <option value="Ashoknagar"></option>
+            <option value="Machhlandpur"></option>
+            <option value="Gobardanga"></option>
+            <option value="Chnadpara"></option>
+            <option value="Barasat">
+            <option value="Bongaon">
         </datalist>
-        
-        
-      
-      <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-      <script src="js/app.js"></script>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <!-- jQuery Timepicker Addon -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

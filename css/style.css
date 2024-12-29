@@ -142,7 +142,13 @@ body {
   background-color: #e0951e;
   border-radius: 9px;
   padding: 10px 20px;
-  margin: 0;
+  margin: 0 0 10px 0;
+}
+
+.card .card-text button:nth-last-of-type(1){
+    background-color: #fff;
+    border: 1px solid #e0951e;
+    color: #e0951e;
 }
 
 .card .card-text .meta-fields {
@@ -166,12 +172,10 @@ body {
 }
 
 #result {
-  width: 300px;
+  width: 400px;
   position: absolute;
-  left: 0;
-  right: 0px;
+  right: 20px;
   top: 20px;
-  margin: 0 auto;
   background-color: #fff;
   border: 1px solid #ccc;
   padding: 20px;
@@ -189,54 +193,61 @@ body {
   text-align: center;
 }
 
-/*
-.btn{
-    position: relative;
-    display: inline-block;
-    text-decoration: none;
-    font-family: inherit;
-    font-size: 16px;
-    color: #ffffff;
-    line-height: 1.3;
-    font-weight: 400;
-    background-color: #000;
-    border: 1px solid #000;
-    border-radius: 50px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 12px 24px;
-    margin: 30px;
-    transition: 0.5s;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+.w-100{
+    width: 100% !important;
 }
 
-.btn:hover{
+
+.ticket-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
     background-color: #fff;
-    color: #000;
-}
-
-.btn-green {
-    background-color: #179757;
-    background-image: linear-gradient(180deg, #1dab64, #096b3a);
-    border-color: #179757;
-    box-shadow: #096b3a73 0px 13px 27px -5px, #1dab6461 0px 8px 16px -8px;
-}
-
-.btn .bx{
-    font-size: 25px;
-    vertical-align: middle;
-}
-
-.btn::after {
-    content: '';
-    position: absolute;
-    left: 18px;
-    top: 2px;
-    background-color: #ffffff1a;
-    height: 10px;
-    width: 80%;
-    border-radius: 50px;
-    background-image: linear-gradient(180deg, #ffffff29, transparent);
-    transition:  0.5s;
-}
-*/
+    border: 2px dashed #4caf50; /* Dashed border for ticket look */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for toast effect */
+    max-width: 300px;
+    animation: slideIn 0.5s ease-out;
+    z-index: 1000;
+  }
+  
+  .ticket-toast h4 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    color: #4caf50;
+  }
+  
+  .ticket-toast p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .ticket-toast #download-ticket {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .ticket-toast #download-ticket:hover {
+    background-color: #45a049;
+  }
+  
+  /* Toast animation */
+  @keyframes slideIn {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
