@@ -19,17 +19,17 @@ $(document).ready(function () {
     });
 
     // Initialize Timepicker
-    $("#time").timepicker({
-        timeFormat: "h:mm tt", // 12-hour format with AM/PM
-        interval: 15, // Step interval for minutes
-        minTime: "12:00am", // Minimum time
-        maxTime: "11:45pm", // Maximum time
-        defaultTime: "", // Leave the field empty until user selects
-        startTime: "12:00am", // Start of the time range
-        dynamic: false, // Prevents dynamic updates to the dropdown
-        dropdown: true, // Show the dropdown
-        scrollbar: true, // Enable scrollbar if dropdown exceeds height
-    });
+    // $("#time").timepicker({
+    //     timeFormat: "h:mm tt", // 12-hour format with AM/PM
+    //     interval: 15, // Step interval for minutes
+    //     minTime: "12:00am", // Minimum time
+    //     maxTime: "11:45pm", // Maximum time
+    //     defaultTime: "", // Leave the field empty until user selects
+    //     startTime: "12:00am", // Start of the time range
+    //     dynamic: false, // Prevents dynamic updates to the dropdown
+    //     dropdown: true, // Show the dropdown
+    //     scrollbar: true, // Enable scrollbar if dropdown exceeds height
+    // });
 
     // Function to generate a unique 6-digit OTP
     function generateOTP() {
