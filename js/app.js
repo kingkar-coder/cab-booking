@@ -103,6 +103,11 @@ Unique OTP: ${otp}
             link.download = `Ticket_${from}_to_${to}_${date}.txt`;
             link.click();
             URL.revokeObjectURL(url); // Clean up the URL
+
+            // Hide the ticket div after downloading
+            $("#result").fadeOut(300, function () {
+                $(this).html(""); // Clear the ticket details
+            });
         });
 
         // Clear Fields
