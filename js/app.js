@@ -1,3 +1,10 @@
+const timestamp = new Date().getTime(); // Get current timestamp
+const link = document.createElement("link");
+link.rel = "stylesheet";
+link.href = `css/style.css?version=${timestamp}`; // Append timestamp
+document.head.appendChild(link);
+
+
 $(document).ready(function () {
     // Initialize Datepicker
     $("#date").datepicker({
