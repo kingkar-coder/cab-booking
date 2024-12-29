@@ -166,10 +166,12 @@ body {
 }
 
 #result {
-  width: 400px;
+  width: 300px;
   position: absolute;
-  right: 20px;
+  left: 0;
+  right: 0px;
   top: 20px;
+  margin: 0 auto;
   background-color: #fff;
   border: 1px solid #ccc;
   padding: 20px;
